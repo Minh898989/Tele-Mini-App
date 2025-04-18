@@ -1,0 +1,47 @@
+/* Game container styling */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Score display */
+  .score {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Difficulty label */
+  .difficulty {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 1rem;
+  }
+  
+  /* Canvas styling */
+  canvas {
+    border: 2px solid #000;
+    background-color: #fef9e7;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Back button */
+  .back-button {
+    margin-top: 1rem;
+    padding: 0.5rem 1.25rem;
+    background-color: #888;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #555;
+  }
+  

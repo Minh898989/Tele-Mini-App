@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+.app {
+  text-align: center;
+  padding: 20px;
+}
+
+.menu button,
+.rewards button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.game {
+  font-size: 20px;
+  color: green;
+}
+
+.rewards p {
+  font-size: 18px;
+}

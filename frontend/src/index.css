@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(145deg, #f3f3f3, #cbefff);
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 600px;
+  margin: auto;
+  padding: 32px;
+  text-align: center;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-top: 80px;
+}
+
+h1, h2 {
+  color: #1890ff;
+}
