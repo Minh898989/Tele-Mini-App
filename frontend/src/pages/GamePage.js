@@ -22,13 +22,15 @@ const GamePage = () => {
       });
 
     const loadImages = async () => {
-      const [player, bullet, enemy, background] = await Promise.all([
-        loadImage(''),
-        loadImage(''),
-        loadImage(''),
-        loadImage('https://img.lovepik.com/background/20211021/medium/lovepik-science-fiction-universe-planet-background-image_400223996.jpg'),
+      const [player, bullet, enemy1, enemy2, enemy3, background] = await Promise.all([
+        loadImage('/images/playerShip1_blue.png'),
+        loadImage('/images/laserRed16.png'),
+        loadImage('/images/enemyBlack3.png'),
+        loadImage('/images/enemyGreen1.png'),
+        loadImage('/images/enemyRed5.png'),
+        loadImage('https://img.pikbest.com/ai/illus_our/20230422/a38920d0d1e7c9c765f37965c6b24623.jpg!w700wp'),
       ]);
-      setImages({ player, bullet, enemy, background });
+      setImages({ player, bullet, enemy1, enemy2, enemy3, background });
     };
 
     loadImages();
@@ -36,7 +38,7 @@ const GamePage = () => {
 
   // Main game logic
   useEffect(() => {
-    if (!images.player || !images.bullet || !images.enemy || !images.background) return;
+    if (!images.player || !images.bullet || !images.enemy1 || !images.background) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -44,11 +46,14 @@ const GamePage = () => {
     let lastEnemySpawn = 0;
 
     const spawnEnemy = () => {
+      const type = Math.floor(Math.random() * 3) + 1; // Random type 1,2,3
       enemiesRef.current.push({
         x: Math.random() * (canvas.width - 40),
         y: -40,
         width: 40,
         height: 40,
+        type: type,   // loại enemy
+        hp: type,     // máu tương ứng (1,2,3)
       });
     };
 
@@ -86,15 +91,19 @@ const GamePage = () => {
 
       // Move enemies
       enemiesRef.current = enemiesRef.current
-        .map((enemy) => ({ ...enemy, y: enemy.y + 5 }));
+        .map((enemy) => ({ ...enemy, y: enemy.y + 1 }));
 
       // Bullet vs Enemy collision
       bulletsRef.current.forEach((bullet, bulletIndex) => {
         enemiesRef.current.forEach((enemy, enemyIndex) => {
           if (isColliding({ ...bullet, width: 10, height: 20 }, enemy)) {
             bulletsRef.current.splice(bulletIndex, 1);
-            enemiesRef.current.splice(enemyIndex, 1);
-            scoreRef.current += 1;
+            enemy.hp -= 1; // giảm máu
+
+            if (enemy.hp <= 0) {
+              enemiesRef.current.splice(enemyIndex, 1);
+              scoreRef.current += enemy.type; // cộng điểm theo loại
+            }
           }
         });
       });
@@ -102,13 +111,17 @@ const GamePage = () => {
       // Enemy vs Player collision
       enemiesRef.current = enemiesRef.current.filter((enemy) => {
         if (isColliding(playerRef.current, enemy)) {
+          setGameOver(true);
+          return false;
+        }
+        if (enemy.y > canvas.height) {
           hitCountRef.current += 1;
           if (hitCountRef.current >= 10) {
             setGameOver(true);
           }
-          return false; // Remove enemy if hit
+          return false;
         }
-        return enemy.y < canvas.height;
+        return true;
       });
 
       // Spawn new enemies every 1.5s
@@ -139,16 +152,16 @@ const GamePage = () => {
 
       // Draw enemies
       enemiesRef.current.forEach((enemy) => {
-        ctx.drawImage(images.enemy, enemy.x, enemy.y, enemy.width, enemy.height);
+        const enemyImage = images[`enemy${enemy.type}`];
+        ctx.drawImage(enemyImage, enemy.x, enemy.y, enemy.width, enemy.height);
       });
 
       // Draw score
       ctx.fillStyle = 'white';
       ctx.font = '20px Arial';
-      ctx.fillText(`Điểm: ${scoreRef.current}`, 10, 30);
-      ctx.fillText(`Lượt va chạm: ${hitCountRef.current}`, 10, 60);
+      ctx.fillText(`🎯Hạ: ${scoreRef.current}`, 10, 30);
+      ctx.fillText(`❤️Mạng: ${hitCountRef.current}`, 10, 60);
 
-      // Game Over text
       if (gameOver) {
         ctx.fillStyle = 'red';
         ctx.font = '50px Arial';
@@ -198,13 +211,10 @@ const GamePage = () => {
       <h1>🎮 BẮN GÀ SIÊU VUI 🐔</h1>
       <canvas
         ref={canvasRef}
-        width={900}
+        width={950}
         height={700}
         style={{ border: '3px solid black', borderRadius: 10 }}
       />
-      <p style={{ marginTop: 10 }}>
-        Dùng ← → ↑ ↓ để di chuyển, nhấn SPACE để bắn 🚀
-      </p>
     </div>
   );
 };
