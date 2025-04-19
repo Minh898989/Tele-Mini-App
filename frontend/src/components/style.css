@@ -1,0 +1,126 @@
+/* === Tổng thể trang === */
+.page {
+    background-color: #000;
+    background-image: radial-gradient(white 1px, transparent 1px),
+                      radial-gradient(white 1px, transparent 1px);
+    background-size: 100px 100px;
+    background-position: 0 0, 50px 50px;
+    min-height: 100vh;
+    padding: 32px;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* === Tiêu đề chính === */
+  h2 {
+    color: #00bfff;
+    text-shadow: 0 0 12px #00bfff, 0 0 24px #0077cc;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  
+  /* === Tabs === */
+  .ant-tabs-tab {
+    color: #ffffffcc !important;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+  }
+  
+  .ant-tabs-tab-active {
+    color: #00bfff !important;
+    border-bottom: 2px solid #00bfff;
+    text-shadow: 0 0 8px #00bfff;
+  }
+  
+  /* === Card nâng cấp & tàu === */
+  .ant-card {
+    background-color: rgba(0, 0, 30, 0.85) !important;
+    border: 2px solid #00bfff !important;
+    border-radius: 12px !important;
+    box-shadow: 0 0 12px #00bfff66, 0 0 20px #00bfff22;
+    color: white !important;
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+  }
+  
+  .ant-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 24px #00bfffcc, 0 0 40px #00bfff66;
+  }
+  
+  /* Card bên trong */
+  .ant-card-body {
+    background-color: transparent !important;
+    color: white !important;
+  }
+  
+  .ant-card-meta,
+  .ant-card-meta-title,
+  .ant-card-meta-description {
+    color: white !important;
+  }
+  
+  /* Ảnh tàu */
+  .ant-card-cover img {
+    background-color: #000;
+  }
+  
+  /* === Nút Glow === */
+  .ant-btn {
+    background: transparent !important;
+    color: #00bfff !important;
+    border: 2px solid #00bfff !important;
+    font-weight: bold;
+    box-shadow: 0 0 8px #00bfff88;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .ant-btn:hover,
+  .ant-btn:focus {
+    background-color: #00bfff !important;
+    color: #000 !important;
+    box-shadow: 0 0 12px #00bfffcc, 0 0 24px #00bfff99;
+  }
+  
+  .ant-btn-primary {
+    background-color: #00bfff !important;
+    color: #000 !important;
+    border: 2px solid #00bfff !important;
+    box-shadow: 0 0 12px #00bfffcc;
+  }
+  
+  /* === Rocket trang trí === */
+  .rocket {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    animation: floatRocket 3s ease-in-out infinite;
+    opacity: 0.8;
+  }
+  
+  @keyframes floatRocket {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+  }
+  
+  /* === Ngôi sao lấp lánh nền === */
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s infinite ease-in-out;
+    opacity: 0.8;
+  }
+  
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+  
