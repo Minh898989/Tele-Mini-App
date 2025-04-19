@@ -20,6 +20,7 @@ export default function Game() {
   const { difficulty } = useParams();
   const navigate = useNavigate();
   const [bulletLevel, setBulletLevel] = useState(1);
+ 
 
 
   const numericDifficulty = difficulty === "easy" ? 1 : difficulty === "medium" ? 2 : 3;
@@ -181,7 +182,8 @@ export default function Game() {
       chickensRef.current = remainingChickens;
 
       // Sinh gà
-      const spawnRate = 150 / numericDifficulty;
+      const baseSpawnRate = 30; // 60 frame = ~1 giây
+      const spawnRate = baseSpawnRate * (4 - numericDifficulty);// easy: 60, medium: 120, hard: 180 (chậm dần)
       if (frame % spawnRate === 0) spawnChicken();
 
       frame++;
@@ -203,6 +205,8 @@ export default function Game() {
     chickensRef.current = [];
     setIsGameOver(false);
     setIsWin(false);
+    setPlayerPosition(430);    
+    setBulletLevel(1); 
     
   };
   
